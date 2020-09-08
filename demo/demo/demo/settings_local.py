@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'cart',     #可自己寫此app或者上網抓套件"django-cart"
     'orders',
     'shop',
+    # 'registration',
     'django.contrib.sites',     #要安裝allauth也需安裝這個 要記得設定SITE_ID=1
     # 'filer',
     'bootstrap3',
@@ -162,6 +163,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static_files')
 #跟TEMPLATE_DIRS的作用類似 --- 例如專案的公共檔案
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
+    # os.path.join(BASE_DIR, 'media'),
 ]
 
 
@@ -176,14 +178,20 @@ CART_SESSION_ID = 'cart'
 #Site
 SITE_ID = 1
 
+# Celery
+BROKER_URL = 'redis://localhost:6379'
+CELERY_RESULT_BACKEND = 'redis://localhost:6379'
+CELERY_ACCEPT_CONTENT = ['application/json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
+CELERY_TIMEZONE = 'Asia/Taipei'
+
 #Email設定
-EMAIL_BACKEND = 'django_mailgun.MailgunBackend'
-MAILGUN_ACCESS_KEY = 'xxx' #到mailgun domain api找
-MAILGUN_SERVER_NAME = 'xxx' #到mailgun找網域名
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_USE_TLS = True
-EMAIL_HOST = 'stmp.gmail.com'
-EMAIL_HOST_USER = 'xxx'
-EMAIL_HOST_PASSWORD = 'xxx'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'chiuweiling1@gmail.com'
+EMAIL_HOST_PASSWORD = 'demolademola'
 EMAIL_POST = 587
 
 
